@@ -1,10 +1,10 @@
 const express = require("express");
+const fetch = require("node-fetch");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// URL to your actual keys JSON on GitHub
-const keysUrl = "https://raw.githubusercontent.com/GentleScriptHub/Real-Key/refs/heads/main/Keys.json";
+const keysUrl = "https://raw.githubusercontent.com/GentleScriptHub/Real-Key/main/Keys.json";
 
 app.get("/getKey", async (req, res) => {
   try {
@@ -15,7 +15,6 @@ app.get("/getKey", async (req, res) => {
 
     const currentTime = Math.floor(Date.now() / 1000);
 
-    // Filter keys that are still valid (not expired)
     const validKeys = data.filter(entry => {
       const expires = new Date(entry.expires).getTime() / 1000;
       return expires > currentTime;
@@ -25,7 +24,6 @@ app.get("/getKey", async (req, res) => {
       return res.status(404).json({ error: "No valid keys found" });
     }
 
-    // Send just the first valid key
     res.json({ key: validKeys[0].key });
   } catch (error) {
     console.error(error);
