@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Your hidden GitHub RAW key.json URL
-const GITHUB_KEY_URL = "https://raw.githubusercontent.com/GentleScriptHub/yh/main/key.json";
+const GITHUB_KEY_URL = "https://raw.githubusercontent.com/GentleScriptHub/Real-Key/refs/heads/main/Keys.json";
 
 app.get("/keys", async (req, res) => {
     try {
