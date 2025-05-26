@@ -12,7 +12,6 @@ app.get("/getKey", async (req, res) => {
     if (!response.ok) throw new Error("Failed to fetch keys");
 
     const data = await response.json();
-
     const currentTime = Math.floor(Date.now() / 1000);
 
     const validKeys = data.filter(entry => {
@@ -24,7 +23,8 @@ app.get("/getKey", async (req, res) => {
       return res.status(404).json({ error: "No valid keys found" });
     }
 
-    res.json({ key: validKeys[0].key });
+    // ✅ Return full key and expiration info
+    res.json({ keys: validKeys });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error" });
